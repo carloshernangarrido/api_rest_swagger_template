@@ -1,0 +1,104 @@
+
+
+
+openapi: 3.0.0
+info:
+  title: "API zero"
+  description: "API example to connect to a SQL db"
+  version: "1.0.0"
+
+
+servers:
+  - url: "/api"
+
+
+components:
+  schemas:
+    Customer:
+      type: "object"
+      required:
+        - last_name
+      properties:
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        birth_date:
+          type: "string"
+          format: "date"
+  parameters:
+    first_name_last_name:
+      name: "first_name_last_name"
+      description: "first and last name of the customer to get separated by _ (case sensitive)"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+
+paths:
+  /customer:
+    get:
+      operationId: "customers.read_all"
+      tags:
+        - "Customers"
+      summary: "Reads the list of customers"
+      responses:
+        "200":
+          description: "List of customers successfully read"
+    post:
+      operationId: "customers.create"
+      tags:
+        - "Customers"
+      summary: "Create a customer"
+      responses:
+        "201":
+          description: "Customer successfully created"
+      requestBody:
+        description: "Customer to create"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "customer"
+              $ref: "#/components/schemas/Customer"
+
+  /customer/{first_name_last_name}:
+    get:
+      operationId: "customers.read_one"
+      tags:
+        - "Customer"
+      summary: "Read one customer"
+      parameters:
+        - $ref: "#/components/parameters/first_name_last_name"
+      responses:
+        "200":
+          description: "Customer successfully read"
+    put:
+      operationId: "customers.update"
+      tags:
+        - "Customer"
+      summary: "Update a customer"
+      parameters:
+        - $ref: "#/components/parameters/first_name_last_name"
+      responses:
+        "200":
+          description: "Customer successfully updated"
+      requestBody:
+        description: "New data to update the Customer"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "customer"
+              $ref: "#/components/schemas/Customer"
+    delete:
+      operationId: "customers.delete"
+      tags:
+        - "Customer"
+      summary: "Delete a customer"
+      parameters:
+        - $ref: "#/components/parameters/first_name_last_name"
+      responses:
+        "200":
+          description: "Customer successfully deleted"
