@@ -2,7 +2,6 @@ from flask import render_template
 import connexion
 
 import sqlalchemy
-from secret import db
 
 engine = sqlalchemy.engine.create_engine(
     "mysql://root:cueva128rata@localhost:3306")
