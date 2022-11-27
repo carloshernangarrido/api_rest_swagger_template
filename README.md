@@ -1,3 +1,3 @@
-# api_rest_swagger_template
+# API REST Swagger Template
 
-API rest based on OpenAPI for CRUD operations in raw SQL.
+### API rest based on OpenAPI for CRUD operations in raw SQL.
